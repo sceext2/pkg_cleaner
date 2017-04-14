@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "coffee -o dist/ src/"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.0.0-beta1"
+  }
+}
