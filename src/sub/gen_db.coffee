@@ -36,23 +36,16 @@ gen_db = ->
     pkg_info: {}
   }
   console.log "pkgc: get pkg list in each group .. . "
+  gi = await _pm.get_group_info_list group_list
   pkg_list_2 = []
-  for i in group_list
-    try
-      gi = await _pm.get_group_info i
-      pkg_list_2 = pkg_list_2.concat gi.pkg
-    catch e
-      o.bad_group.push i
-      console.log "pkgc.W: get group info of `#{i}` FAILED"
+  for i of gi.group_info
+    pkg_list_2 = pkg_list_2.concat gi.group_info[i].pkg
+  o.bad_group = gi.bad_group
 
   console.log "pkgc: getting pkg info .. . "
-  for i in pkg_list_1.concat(pkg_list_2)
-    if ! o.pkg_info[i]?
-      try
-        o.pkg_info[i] = await _pm.get_pkg_info i
-      catch e
-        o.bad_pkg.push i
-        console.log "pkgc.W: get pkg info of `#{i}` FAILED"
+  pi = await _pm.get_pkg_info_list pkg_list_1.concat(pkg_list_2)
+  o.pkg_info = pi.pkg_info
+  o.bad_pkg = pi.bad_pkg
   console.log "pkgc: resolving dependencies .. . "
   todo = pkg_list_1.concat pkg_list_2
   todo_new = []

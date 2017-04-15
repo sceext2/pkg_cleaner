@@ -47,7 +47,7 @@ run_cmd = (args) ->
       resolve exit_code
 
 # run shell command, pipe stdin -> stdin, stderr -> stderr, return stdout as text
-call_cmd = (args) ->
+call_cmd = (args, ignore_err) ->
   new Promise (resolve, reject) ->
     cmd = args[0]
     rest = args[1..]
@@ -61,7 +61,7 @@ call_cmd = (args) ->
       reject err
     p.on 'exit', (exit_code) ->
       # check exit_code
-      if exit_code != 0
+      if (exit_code != 0) and (! ignore_err)
         reject exit_code
       else
         resolve Buffer.concat(stdout).toString('utf-8')

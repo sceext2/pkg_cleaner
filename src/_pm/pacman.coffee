@@ -77,14 +77,14 @@ _p_pkg_info_list = (raw) ->
 _p_pkg_info = (raw) ->
   # FIXME TODO support version deps
   _clean_dep_name = (raw) ->
-    if raw.indexOf('>=')
-      raw[.. raw.indexOf('>=')]
-    else if raw.indexOf('=')
-      raw[.. raw.indexOf('=')]
-    else if raw.indexOf('>')
-      raw[.. raw.indexOf('>')]
-    else if raw.indexOf('<')
-      raw[.. raw.indexOf('<')]
+    if raw.indexOf('>=') != -1
+      raw[... raw.indexOf('>=')]
+    else if raw.indexOf('=') != -1
+      raw[... raw.indexOf('=')]
+    else if raw.indexOf('>') != -1
+      raw[... raw.indexOf('>')]
+    else if raw.indexOf('<') != -1
+      raw[... raw.indexOf('<')]
     else
       raw
   _parse_dep = (l) ->
@@ -93,12 +93,12 @@ _p_pkg_info = (raw) ->
       o.push _clean_dep_name i
     o
   _parse_opt_dep = (i) ->
+    if i.trim() == 'None'
+      return
     i = i.trim()
     if i.indexOf(':') != -1
       p = i.split(':')
       key = _clean_dep_name p[0]
-      if key == 'None'
-        return
       value = p[1..].join(':').trim()
       o.opt_dep.push {
         name: key
@@ -161,7 +161,8 @@ _p_pkg_info = (raw) ->
 # call pacman command
 _call_pacman = (args) ->
   c = [config.BIN_PACMAN].concat args
-  await _async.call_cmd c
+  # ignore error (exit_code != 0)
+  await _async.call_cmd c, true
 
 # eg: $ pacman -Q
 get_installed_pkg_list = ->
