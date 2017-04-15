@@ -41,12 +41,64 @@ _p_group_info = (raw) ->
     pkg: o
   }
 
+_p_group_info_list = (raw) ->
+  o = {
+    bad_group: []
+    group_info: {}
+  }
+  for i in _parse_line(raw)
+    [group_name, pkg_name] = i.split(' ')
+    group_name = group_name.trim()
+    pkg_name = pkg_name.trim()
+
+    if ! o.group_info[group_name]?
+      o.group_info[group_name] = {
+        pkg: []
+      }
+    o.group_info[group_name].pkg.push pkg_name
+  for i in raw
+    if ! o.group_info[i]?
+      o.bad_group.push i
+  o
+
+_p_pkg_info_list = (raw) ->
+  o = {
+    bad_pkg: []
+    pkg_info: {}
+  }
+  for i in raw.split('\n\n')
+    pi = _p_pkg_info(i)
+    o.pkg_info[pi.name] = pi
+  for i in raw
+    if ! o.pkg_info[i]?
+      o.bad_pkg.push i
+  o
+
 _p_pkg_info = (raw) ->
+  # FIXME TODO support version deps
+  _clean_dep_name = (raw) ->
+    if raw.indexOf('>=')
+      raw[.. raw.indexOf('>=')]
+    else if raw.indexOf('=')
+      raw[.. raw.indexOf('=')]
+    else if raw.indexOf('>')
+      raw[.. raw.indexOf('>')]
+    else if raw.indexOf('<')
+      raw[.. raw.indexOf('<')]
+    else
+      raw
+  _parse_dep = (l) ->
+    o = []
+    for i in l
+      o.push _clean_dep_name i
+    o
   _parse_opt_dep = (i) ->
     i = i.trim()
     if i.indexOf(':') != -1
       p = i.split(':')
-      key = p[0]
+      key = _clean_dep_name p[0]
+      if key == 'None'
+        return
       value = p[1..].join(':').trim()
       o.opt_dep.push {
         name: key
@@ -87,9 +139,11 @@ _p_pkg_info = (raw) ->
           if value != 'None'
             o.group = _split(value)
         when 'Provides'
-          o.provide = _split(value)
+          if value != 'None'
+            o.provide = _split(value)
         when 'Depends On'
-          o.dep = _split(value)
+          if value != 'None'
+            o.dep = _parse_dep(_split(value))
         when 'Optional Deps'
           o.opt_dep = []
           flag_opt_dep = true
@@ -98,7 +152,8 @@ _p_pkg_info = (raw) ->
           if value != 'None'
             o.conflict = _split(value)
         when 'Replaces'
-          o.replace = value
+          if value != 'None'
+            o.replace = value
         # else: ignore
   o
 
@@ -123,12 +178,20 @@ get_group_info = (group_name) ->
   r = await _call_pacman ['-Sg', group_name]
   _p_group_info r
 
+get_group_info_list = (group_name_list) ->
+  r = await _call_pacman ['-Sg'].concat(group_name_list)
+  _p_group_info_list r
+
 # eg: $ pacman -Si python
 # TODO FIXME $ pacman -Qi python
 get_pkg_info = (pkg_name) ->
   # TODO FIMXE -Qi as fallback
   r = await _call_pacman ['-Si', pkg_name]
   _p_pkg_info r
+
+get_pkg_info_list = (pkg_name_list) ->
+  r = await _call_pacman ['-Si'].concat(pkg_name_list)
+  _p_pkg_info_list r
 
 
 # gen pacman command
@@ -147,7 +210,9 @@ module.exports = {
   get_installed_pkg_list  # async
   get_installed_group_list  # async
   get_group_info  # async
+  get_group_info_list  # async
   get_pkg_info  # async
+  get_pkg_info_list  # async
 
   gen_remove_command
   gen_install_command
