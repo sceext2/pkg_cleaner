@@ -7,6 +7,24 @@ _pm = require '../_pm/pacman'
 
 
 _save_db_file = (o) ->
+  # bad_pkg_installed
+  for i in o.pkg_list_installed
+    if o.bad_pkg[i]
+      o.bad_pkg_installed.push i
+  # turn off installed bad_pkg
+  for i in o.bad_pkg_installed
+    o.bad_pkg[i] = false
+  # turn off provide bad_pkg
+  for i of o.provide
+    o.bad_pkg[i] = false
+  # restruct bad_pkg
+  bp = o.bad_pkg
+  o.bad_pkg = []
+  for i of bp
+    if bp[i]
+      o.bad_pkg.push i
+
+  console.log "pkgc.D: o.pkg_info length == #{Object.keys(o.pkg_info).length}, #{o.bad_pkg.length} bad pkgs"
   o.time = new Date().toISOString()
   text = util.print_json(o) + '\n'
   await util.write_file config.pkg_db_file, text
@@ -27,9 +45,11 @@ gen_db = ->
 
     pkg_list_installed: pkg_list_1
     group_list: group_list
-    bad_pkg: []
+    bad_pkg: {}
+    bad_pkg_installed: []
     bad_group: []
-    # TODO
+    group_info: {}
+
     provide: {}
     replace: {}
 
@@ -41,26 +61,38 @@ gen_db = ->
   for i of gi.group_info
     pkg_list_2 = pkg_list_2.concat gi.group_info[i].pkg
   o.bad_group = gi.bad_group
+  Object.assign o.group_info, gi.group_info
 
   console.log "pkgc: getting pkg info .. . "
   pi = await _pm.get_pkg_info_list pkg_list_1.concat(pkg_list_2)
-  o.pkg_info = pi.pkg_info
-  o.bad_pkg = pi.bad_pkg
+  Object.assign o.pkg_info, pi.pkg_info
+  for i in pi.bad_pkg
+    o.bad_pkg[i] = true
   console.log "pkgc: resolving dependencies .. . "
   todo = pkg_list_1.concat pkg_list_2
   todo_new = []
   resolved = {}
+
+  _fetch_pkg_info = ->
+    to = []
+    for i in todo
+      if (o.pkg_info[i]?) or o.bad_pkg[i]
+        continue
+      else
+        to.push i
+    if to.length > 0
+      pi = await _pm.get_pkg_info_list to
+      Object.assign o.pkg_info, pi.pkg_info
+      for i in pi.bad_pkg
+        o.bad_pkg[i] = true
   # resolve one pkg
-  # FIXME TODO support `provide` and `replace`
   _resolve_one = (pkg_name) ->
     if resolved[pkg_name]
       return
-    if o.bad_pkg.indexOf(pkg_name) != -1
+    if o.bad_pkg[pkg_name]
       console.log "pkgc.W: resolve: skip BAD pkg `#{pkg_name}`"
       return
-    if ! o.pkg_info[pkg_name]?
-      o.pkg_info[pkg_name] = await _pm.get_pkg_info pkg_name
-    console.log "pkgc.D: reslove pkg `#{pkg_name}`"
+    #console.log "pkgc.D: reslove pkg `#{pkg_name}`"
     pi = o.pkg_info[pkg_name]
     # add dep and opt_dep
     if pi.dep?
@@ -72,19 +104,29 @@ gen_db = ->
           todo_new.push i.name
         else
           todo_new.push i
+    # check provide and replace
+    if pi.provide?
+      for i in pi.provide
+        o.provide[i] = pkg_name
+    if pi.replace?
+      for i in pi.replace
+        o.replace[i] = pkg_name
     # one resolved
     resolved[pkg_name] = true
+  await _fetch_pkg_info()
   while todo.length > 0
     for i in todo
       try
         await _resolve_one i
       catch e
-        o.bad_pkg.push i
+        o.bad_pkg[i] = true
         console.log "pkgc.W: resolve pkg `#{i}` FAILED"
+        # FIXME
+        console.log e.stack
     todo = todo_new
+    await _fetch_pkg_info()
     todo_new = []
   # done
-  console.log "pkgc.D: o.pkg_info length == #{Object.keys(o.pkg_info).length}, #{o.bad_pkg.length} bad pkgs"
   await _save_db_file o
 
 module.exports = gen_db  # async

@@ -41,7 +41,7 @@ _p_group_info = (raw) ->
     pkg: o
   }
 
-_p_group_info_list = (raw) ->
+_p_group_info_list = (raw, group_list) ->
   o = {
     bad_group: []
     group_info: {}
@@ -56,12 +56,12 @@ _p_group_info_list = (raw) ->
         pkg: []
       }
     o.group_info[group_name].pkg.push pkg_name
-  for i in raw
+  for i in group_list
     if ! o.group_info[i]?
       o.bad_group.push i
   o
 
-_p_pkg_info_list = (raw) ->
+_p_pkg_info_list = (raw, pkg_list) ->
   o = {
     bad_pkg: []
     pkg_info: {}
@@ -69,7 +69,7 @@ _p_pkg_info_list = (raw) ->
   for i in raw.split('\n\n')
     pi = _p_pkg_info(i)
     o.pkg_info[pi.name] = pi
-  for i in raw
+  for i in pkg_list
     if ! o.pkg_info[i]?
       o.bad_pkg.push i
   o
@@ -140,7 +140,7 @@ _p_pkg_info = (raw) ->
             o.group = _split(value)
         when 'Provides'
           if value != 'None'
-            o.provide = _split(value)
+            o.provide = _parse_dep(_split(value))
         when 'Depends On'
           if value != 'None'
             o.dep = _parse_dep(_split(value))
@@ -153,7 +153,7 @@ _p_pkg_info = (raw) ->
             o.conflict = _split(value)
         when 'Replaces'
           if value != 'None'
-            o.replace = value
+            o.replace = _parse_dep(_split(value))
         # else: ignore
   o
 
@@ -181,7 +181,7 @@ get_group_info = (group_name) ->
 
 get_group_info_list = (group_name_list) ->
   r = await _call_pacman ['-Sg'].concat(group_name_list)
-  _p_group_info_list r
+  _p_group_info_list r, group_name_list
 
 # eg: $ pacman -Si python
 # TODO FIXME $ pacman -Qi python
@@ -192,7 +192,7 @@ get_pkg_info = (pkg_name) ->
 
 get_pkg_info_list = (pkg_name_list) ->
   r = await _call_pacman ['-Si'].concat(pkg_name_list)
-  _p_pkg_info_list r
+  _p_pkg_info_list r, pkg_name_list
 
 
 # gen pacman command
