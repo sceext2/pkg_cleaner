@@ -9,7 +9,6 @@
       "pkg": [
         "base",
         "grub",
-        "sudo",
 
         {
           "desc": "linux",
@@ -35,19 +34,13 @@
               "type": "white",
               "level": 0,
               "pkg": [
-                "lvm2",
                 "btrfs-progs",
-                "xfsprogs",
-                "e2fsprogs",
                 "sshfs",
                 "unionfs-fuse",
 
                 "quota-tools",
                 "squashfs-tools",
-                "jfsutils",
-                "sysfsutils",
                 "shfs-utils",
-                "reiserfsprogs",
 
                 "exfat-utils",
                 "ntfs-3g"
@@ -61,11 +54,8 @@
         "linux-tools",
         "bridge-utils",
         "net-tools",
-        "netctl",
         "nftables",
         "libnetfilter_queue",
-        "usbip",
-        "usbutils",
 
         "fish",
         "vim",
@@ -77,7 +67,6 @@
               "level": 0,
               "pkg": [
                 "wget",
-                "curl",
                 "aria2",
 
                 "dos2unix",
@@ -101,7 +90,6 @@
       "level": 0,
       "desc": "GUI",
       "pkg": [
-        "wayland",
         "weston",
         {
           "name": "xorg-drivers",
@@ -151,7 +139,6 @@
               "desc": "TODO",
               "pkg": [
                 "qtcurve",
-                "qtcurve-qt5",
                 "qt5ct"
               ]
             }
@@ -166,24 +153,13 @@
               "type": "black",
               "level": 0,
               "desc": "unneeded pkg in group `gnome-extra`",
-              "pkg": [
-
-              ]
+              "pkg": []
             },
             {
               "type": "white",
               "level": 0,
               "desc": "TODO",
-              "pkg": [
-                "gvfs",
-                "gvfs-afc",
-                "gvfs-goa",
-                "gvfs-google",
-                "gvfs-gphoto2",
-                "gvfs-mtp",
-                "gvfs-nfs",
-                "gvfs-smb"
-              ]
+              "pkg": []
             }
           ]
         },
@@ -246,7 +222,6 @@
             }
           ]
         },
-        "flatpak",
 
         "gparted",
         "v4l2ucp"
@@ -271,31 +246,17 @@
         "base-devel",
         "vulkan-devel",
 
-        "vulkan-extra-layers",
-        "vulkan-headers",
-        "vulkan-html-docs",
         "vulkan-intel",
-        "vulkan-man-pages",
         "vulkan-radeon",
-        "vulkan-trace",
-        "vulkan-validation-layers",
         "opencl-headers",
 
-        "electron",
         "atom",
         "emacs",
 
-        "git",
-        "ostree",
-
-        "nodejs",
-        "npm",
-        "rust",
         "rust-docs",
         "cargo",
         "rust-racer",
         "rustfmt",
-        "python",
 
         "llvm",
         "lldb",
@@ -316,7 +277,6 @@
               "type": "white",
               "level": 0,
               "pkg": [
-                "aarch64-linux-gnu-binutils",
                 "aarch64-linux-gnu-gcc",
                 "aarch64-linux-gnu-gdb",
                 "aarch64-linux-gnu-glibc",
@@ -348,7 +308,6 @@
               "level": 0,
               "pkg": [
                 "jdk8-openjdk",
-                "jre8-openjdk",
                 "openjdk8-doc",
                 "openjdk8-src"
               ]
@@ -364,10 +323,9 @@
       "level": 0,
       "desc": "virtual machine",
       "pkg": [
-        "libvirt",
         "qemu",
         "qemu-arch-extra",
-        "qemu-iscsi",
+        "qemu-block-iscsi",
         "ovmf",
         "qemu-launcher",
         "virt-manager",
@@ -385,7 +343,6 @@
       "level": 0,
       "desc": "video playing",
       "pkg": [
-        "mpv",
         "smplayer",
         "smplayer-skins",
         "smplayer-themes",
@@ -405,7 +362,6 @@
         "inkscape",
 
         "mediainfo",
-        "ffmpeg",
         "x264",
 
         "lmms",
@@ -416,7 +372,6 @@
       "level": 0,
       "desc": "network",
       "pkg": [
-        "wireshark-cli",
         "wireshark-gtk"
       ]
     },

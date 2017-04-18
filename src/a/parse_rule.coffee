@@ -1,7 +1,7 @@
 # parse_rule.coffee, pkg_cleaner/src/a/
 
+config = require '../config'
 
-_RULE_VERSION = '0.1.0-1'
 
 parse_rule = (raw) ->
   o = {
@@ -21,9 +21,9 @@ parse_rule = (raw) ->
     r[pkg_name] = true
 
   _parse_root = (r) ->
-    if r.version != _RULE_VERSION
-      console.log "pkgc.E: rule version mismatch: `#{r.version}` is not `#{_RULE_VERSION}` "
-      throw new Error("rule version `#{r.version}` != `#{_RULE_VERSION}` ")
+    if r.version != config.PKGC_RULE_VERSION
+      console.log "pkgc.E: rule version mismatch: `#{r.version}` is not `#{config.PKGC_RULE_VERSION}` "
+      throw new Error("rule version `#{r.version}` != `#{config.PKGC_RULE_VERSION}` ")
 
     for i in r.rule
       _parse_rule i
