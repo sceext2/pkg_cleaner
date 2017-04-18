@@ -7,6 +7,9 @@ config = require '../config'
 parse_rule = require '../a/parse_rule'
 resolve = require '../a/resolve'
 
+# now only support `pacman`
+_pm = require '../_pm/pacman'
+
 
 analyse = ->
   console.log "pkgc.D: load pkg db `#{config.pkg_db_file}` "
@@ -120,10 +123,20 @@ analyse = ->
 
   console.log "\npkgs (user roots) to REMOVE"
   _print_pkg_list pkg_db, user_roots_to_remove
-  console.log "\npkgs to INSTALL"
-  _print_pkg_list pkg_db, pkg_to_install
+  if Object.keys(pkg_to_install).length > 0
+    console.log "\npkgs to INSTALL"
+    _print_pkg_list pkg_db, pkg_to_install
+
+  # gen remove command
+  to_remove = []
+  for i of pkg_to_remove
+    if pkg_db.pkg_info[i]?
+      to_remove.push i
+  command = _pm.gen_remove_command to_remove
+  console.log "\nTo REMOVE pkgs, run this command: \n#{command}"
 
   # TODO
+  # TODO analyse opt_dep
 
 
 module.exports = analyse  # async

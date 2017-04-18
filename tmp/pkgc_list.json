@@ -5,7 +5,7 @@
     {
       "type": "white",
       "level": 0,
-      "desc": "base system",
+      "desc": "base system and small tools",
       "pkg": [
         "base",
         "grub",
@@ -37,6 +37,8 @@
                 "btrfs-progs",
                 "sshfs",
                 "unionfs-fuse",
+                "autofs",
+                "avfs",
 
                 "quota-tools",
                 "squashfs-tools",
@@ -56,6 +58,17 @@
         "net-tools",
         "nftables",
         "libnetfilter_queue",
+        "dnsmasq",
+
+        "abs",
+        "expac",
+        "pacgraph",
+        "pkgdiff",
+        "pkgstats",
+        "checksec",
+        "chrootuid",
+        "fakechroot",
+        "cups",
 
         "fish",
         "vim",
@@ -68,22 +81,34 @@
               "pkg": [
                 "wget",
                 "aria2",
+                "transmission-cli",
+                "transmission-gtk",
 
                 "dos2unix",
 
+                "atop",
                 "htop",
                 "iotop",
                 "i7z",
                 "lshw",
                 "lsof",
                 "tree",
+                "sysstat",
+                "time",
+                "tlp",
 
+                "lrzip",
+                "lzop",
+                "p7zip",
+                "physfs",
                 "unrar"
               ]
             }
           ]
         },
-        "busybox"
+        "busybox",
+        "man-pages-zh_cn",
+        "moreutils"
       ]
     },
     {
@@ -119,6 +144,14 @@
               "level": 0,
               "desc": "unneeded xorg tools",
               "pkg": []
+            },
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "xorg-server-utils",
+                "xorg-xinit"
+              ]
             }
           ]
         },
@@ -159,7 +192,18 @@
               "type": "white",
               "level": 0,
               "desc": "TODO",
-              "pkg": []
+              "pkg": [
+                "gedit-plugins",
+                "ghex",
+
+                "gnome-boxes",
+                "gnome-common",
+                "gnome-icon-theme-extras",
+                "gnome-power-manager",
+                "gnome-search-tool",
+                "gnome-system-log",
+                "gnuplot"
+              ]
             }
           ]
         },
@@ -176,6 +220,7 @@
                 "fcitx-fbterm",
                 "fcitx-googlepinyin",
                 "fcitx-libpinyin",
+                "fcitx-sunpinyin",
                 "fcitx-table-extra",
                 "fcitx-table-other",
                 "fcitx-ui-light",
@@ -217,14 +262,25 @@
                 "alsa-oss",
                 "alsa-tools",
                 "alsa-utils",
-                "alsaplayer"
+                "alsaplayer",
+
+                "jack2",
+                "pamixer",
+                "paprefs",
+                "pavucontrol",
+                "pulseaudio-equalizer",
+                "pulseaudio-jack",
+                "qjackctl"
               ]
             }
           ]
         },
 
         "gparted",
-        "v4l2ucp"
+        "v4l2ucp",
+        "directfb",
+        "fbdump",
+        "guvcview"
       ]
     },
     {
@@ -248,9 +304,10 @@
 
         "vulkan-intel",
         "vulkan-radeon",
-        "opencl-headers",
+        "beignet",
 
         "atom",
+        "asar",
         "emacs",
 
         "rust-docs",
@@ -261,6 +318,8 @@
         "llvm",
         "lldb",
         "clang-tools-extra",
+        "gdb",
+        "musl",
 
         "redis",
 
@@ -295,7 +354,8 @@
               "level": 0,
               "pkg": [
                 "android-tools",
-                "android-udev"
+                "android-udev",
+                "smali"
               ]
             }
           ]
@@ -309,14 +369,21 @@
               "pkg": [
                 "jdk8-openjdk",
                 "openjdk8-doc",
-                "openjdk8-src"
+                "openjdk8-src",
+                "fastjar",
+                "gradle",
+                "jadx"
               ]
             }
           ]
         },
 
         "scrypt",
-        "three.js"
+        "three.js",
+        "d-feet",
+        "devtools",
+        "hexedit",
+        "sqlitebrowser"
       ]
     },
     {
@@ -351,6 +418,10 @@
         "libva-mesa-driver",
         "vdpauinfo",
 
+        "gst-libav",
+        "gst-plugins-ugly",
+        "gstreamer-vaapi",
+
         "baka-mplayer"
       ]
     },
@@ -358,21 +429,56 @@
       "level": 0,
       "desc": "make multi-media",
       "pkg": [
-        "gimp",
+        {
+          "name": "gimp",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "gimp-dbp",
+                "gimp-help-en",
+                "gimp-help-zh_cn",
+                "gimp-plugin-fblur",
+                "gimp-plugin-gmic",
+                "gimp-plugin-lqr",
+                "gimp-plugin-mathmap",
+                "gimp-plugin-wavelet-decompose",
+                "gimp-plugin-wavelet-denoise",
+                "gimp-refocus",
+                "gimp-ufraw"
+              ]
+            }
+          ]
+        },
         "inkscape",
 
         "mediainfo",
         "x264",
 
         "lmms",
-        "blender"
+        {
+          "name": "blender",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "luxblend25"
+              ]
+            }
+          ]
+        },
+        "pandoc"
       ]
     },
     {
       "level": 0,
       "desc": "network",
       "pkg": [
-        "wireshark-gtk"
+        "wireshark-gtk",
+        "iperf",
+        "traceroute"
       ]
     },
 
