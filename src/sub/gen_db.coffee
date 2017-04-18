@@ -54,6 +54,9 @@ gen_db = ->
     replace: {}
 
     pkg_info: {}
+
+    user_pkg_list: []
+    user_roots: []
   }
   console.log "pkgc: get pkg list in each group .. . "
   gi = await _pm.get_group_info_list group_list
@@ -126,6 +129,9 @@ gen_db = ->
     todo = todo_new
     await _fetch_pkg_info()
     todo_new = []
+
+  o.user_pkg_list = await _pm.get_user_pkg_list()
+  o.user_roots = await _pm.get_user_roots()
   # done
   await _save_db_file o
 

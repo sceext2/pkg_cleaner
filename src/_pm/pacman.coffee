@@ -16,7 +16,7 @@ _parse_line = (raw) ->
       o.push t
   o
 
-_p_i_pkg_list = (raw) ->
+_p_pkg_list = (raw) ->
   o = []
   for i in _parse_line(raw)
     p = i.split(' ')[0].trim()
@@ -164,12 +164,12 @@ _call_pacman = (args) ->
   # ignore error (exit_code != 0)
   await _async.call_cmd c, true
 
-# eg: $ pacman -Q
+# $ pacman -Q
 get_installed_pkg_list = ->
   r = await _call_pacman ['-Q']
-  _p_i_pkg_list r
+  _p_pkg_list r
 
-# eg: $ pacman -Qg
+# $ pacman -Qg
 get_installed_group_list = ->
   r = await _call_pacman ['-Qg']
   _p_i_group_list r
@@ -194,6 +194,16 @@ get_pkg_info_list = (pkg_name_list) ->
   r = await _call_pacman ['-Si'].concat(pkg_name_list)
   _p_pkg_info_list r, pkg_name_list
 
+# $ pacman -Qm
+get_user_pkg_list = ->
+  r = await _call_pacman ['-Qm']
+  _p_pkg_list r
+
+# $ pacman -Qe
+get_user_roots = ->
+  r = await _call_pacman ['-Qe']
+  _p_pkg_list r
+
 
 # gen pacman command
 # eg: # pacman --remove ruby php
@@ -214,6 +224,9 @@ module.exports = {
   get_group_info_list  # async
   get_pkg_info  # async
   get_pkg_info_list  # async
+
+  get_user_pkg_list  # async
+  get_user_roots  # async
 
   gen_remove_command
   gen_install_command
