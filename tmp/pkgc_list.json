@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0-1",
-  "desc": "rules for pkg_cleaner, sceext 20170419 1609",
+  "version": "0.1.0",
+  "desc": "rules for pkg_cleaner, sceext 20170419 1625",
   "rule": [
     {
       "type": "white",
@@ -21,8 +21,7 @@
                 "linux-lts",
                 "linux-lts-headers",
                 "linux-zen",
-                "linux-zen-headers",
-                "linux_logo"
+                "linux-zen-headers"
               ]
             }
           ]
@@ -173,7 +172,6 @@
             {
               "type": "white",
               "level": 0,
-              "desc": "TODO",
               "pkg": [
                 "qtcurve",
                 "qt5ct"
@@ -184,7 +182,6 @@
         "gnome",
         {
           "name": "gnome-extra",
-          "desc": "TODO",
           "rule": [
             {
               "type": "black",
@@ -213,7 +210,6 @@
             {
               "type": "white",
               "level": 0,
-              "desc": "TODO",
               "pkg": [
                 "gedit-plugins",
                 "ghex",
