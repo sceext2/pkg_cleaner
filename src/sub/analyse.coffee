@@ -103,7 +103,7 @@ analyse = ->
   pkg_to_install = {}
   for i of to_keep_pkg_list
     if installed_pkg_list.indexOf(i) == -1
-      pkg_to_install = true
+      pkg_to_install[i] = true
 
   _print_pkg_list = (db, list) ->
     for i of list
@@ -132,8 +132,17 @@ analyse = ->
   for i of pkg_to_remove
     if pkg_db.pkg_info[i]?
       to_remove.push i
-  command = _pm.gen_remove_command to_remove
-  console.log "\nTo REMOVE pkgs, run this command: \n#{command}"
+  if to_remove.length > 0
+    command = _pm.gen_remove_command to_remove
+    console.log "\nTo REMOVE pkgs, run this command: \n#{command}"
+  # gen install command
+  to_install = []
+  for i of pkg_to_install
+    if pkg_db.pkg_info[i]?
+      to_install.push i
+  if to_install.length > 0
+    command = _pm.gen_install_command to_install
+    console.log "\nTo INSTALL pkgs, run this command: \n#{command}"
 
   # TODO
   # TODO analyse opt_dep

@@ -1,6 +1,6 @@
 {
   "version": "0.1.0-1",
-  "desc": "rules for pkg_cleaner, sceext 20170418 2244",
+  "desc": "rules for pkg_cleaner, sceext 20170419 1609",
   "rule": [
     {
       "type": "white",
@@ -45,7 +45,8 @@
                 "shfs-utils",
 
                 "exfat-utils",
-                "ntfs-3g"
+                "ntfs-3g",
+                "dosfstools"
               ]
             }
           ]
@@ -125,6 +126,7 @@
               "level": 0,
               "desc": "unneeded drivers",
               "pkg": [
+                "xf86-input-synaptics",
                 "xf86-input-vmmouse",
                 "xf86-video-nouveau",
                 "xf86-video-openchrome",
@@ -164,7 +166,9 @@
               "type": "black",
               "level": 0,
               "desc": "unneeded pkgs in `qt` group",
-              "pkg": []
+              "pkg": [
+                "qt5-webview"
+              ]
             },
             {
               "type": "white",
@@ -186,7 +190,25 @@
               "type": "black",
               "level": 0,
               "desc": "unneeded pkg in group `gnome-extra`",
-              "pkg": []
+              "pkg": [
+                "anjuta",
+                "five-or-more",
+                "four-in-a-row",
+                "gnome-2048",
+                "gnome-chess",
+                "gnome-klotski",
+                "gnome-mahjongg",
+                "gnome-mines",
+                "gnome-nibbles",
+                "gnome-robots",
+                "gnome-sudoku",
+                "gnome-taquin",
+                "gnome-tetravex",
+                "hitori",
+                "libgnome-games-support",
+                "gdl",
+                "jack"
+              ]
             },
             {
               "type": "white",
@@ -246,7 +268,7 @@
                 "ttf-droid",
                 "ttf-liberation",
                 "ttf-linux-libertine",
-                "ttf-ubuntu-font-family"
+                "ttf-freefont"
               ]
             }
           ]
@@ -485,7 +507,10 @@
     {
       "type": "white",
       "desc": "fix",
-      "pkg": []
+      "pkg": [
+        "qca-qt5",
+        "libpng12"
+      ]
     },
     {
       "type": "white",
