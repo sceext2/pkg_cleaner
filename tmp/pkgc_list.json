@@ -1,0 +1,523 @@
+{
+  "version": "0.1.0",
+  "desc": "rules for pkg_cleaner, sceext 20170419 1625",
+  "rule": [
+    {
+      "type": "white",
+      "level": 0,
+      "desc": "base system and small tools",
+      "pkg": [
+        "base",
+        "grub",
+
+        {
+          "desc": "linux",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "linux-headers",
+                "linux-lts",
+                "linux-lts-headers",
+                "linux-zen",
+                "linux-zen-headers"
+              ]
+            }
+          ]
+        },
+        {
+          "desc": "filesystem",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "btrfs-progs",
+                "sshfs",
+                "unionfs-fuse",
+                "autofs",
+                "avfs",
+
+                "quota-tools",
+                "squashfs-tools",
+                "shfs-utils",
+
+                "exfat-utils",
+                "ntfs-3g",
+                "dosfstools"
+              ]
+            }
+          ]
+        },
+        "efibootmgr",
+        "efitools",
+
+        "linux-tools",
+        "bridge-utils",
+        "net-tools",
+        "nftables",
+        "libnetfilter_queue",
+        "dnsmasq",
+
+        "abs",
+        "expac",
+        "pacgraph",
+        "pkgdiff",
+        "pkgstats",
+        "checksec",
+        "chrootuid",
+        "fakechroot",
+        "cups",
+
+        "fish",
+        "vim",
+        {
+          "desc": "tools",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "wget",
+                "aria2",
+                "transmission-cli",
+                "transmission-gtk",
+
+                "dos2unix",
+
+                "atop",
+                "htop",
+                "iotop",
+                "i7z",
+                "lshw",
+                "lsof",
+                "tree",
+                "sysstat",
+                "time",
+                "tlp",
+
+                "lrzip",
+                "lzop",
+                "p7zip",
+                "physfs",
+                "unrar"
+              ]
+            }
+          ]
+        },
+        "busybox",
+        "man-pages-zh_cn",
+        "moreutils"
+      ]
+    },
+    {
+      "level": 0,
+      "desc": "GUI",
+      "pkg": [
+        "weston",
+        {
+          "name": "xorg-drivers",
+          "desc": "video (GPU) drivers",
+          "rule": [
+            {
+              "type": "black",
+              "level": 0,
+              "desc": "unneeded drivers",
+              "pkg": [
+                "xf86-input-synaptics",
+                "xf86-input-vmmouse",
+                "xf86-video-nouveau",
+                "xf86-video-openchrome",
+                "xf86-video-vmware",
+                "xf86-video-voodoo"
+              ]
+            }
+          ]
+        },
+        "xorg",
+        {
+          "name": "xorg-apps",
+          "desc": "tools for xorg",
+          "rule": [
+            {
+              "type": "black",
+              "level": 0,
+              "desc": "unneeded xorg tools",
+              "pkg": []
+            },
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "xorg-server-utils",
+                "xorg-xinit"
+              ]
+            }
+          ]
+        },
+        "xorg-fonts",
+        {
+          "name": "qt5",
+          "desc": "(the same as `qt` group)",
+          "rule": [
+            {
+              "type": "black",
+              "level": 0,
+              "desc": "unneeded pkgs in `qt` group",
+              "pkg": [
+                "qt5-webview"
+              ]
+            },
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "qtcurve",
+                "qt5ct"
+              ]
+            }
+          ]
+        },
+        "gnome",
+        {
+          "name": "gnome-extra",
+          "rule": [
+            {
+              "type": "black",
+              "level": 0,
+              "desc": "unneeded pkg in group `gnome-extra`",
+              "pkg": [
+                "anjuta",
+                "five-or-more",
+                "four-in-a-row",
+                "gnome-2048",
+                "gnome-chess",
+                "gnome-klotski",
+                "gnome-mahjongg",
+                "gnome-mines",
+                "gnome-nibbles",
+                "gnome-robots",
+                "gnome-sudoku",
+                "gnome-taquin",
+                "gnome-tetravex",
+                "hitori",
+                "libgnome-games-support",
+                "gdl",
+                "jack"
+              ]
+            },
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "gedit-plugins",
+                "ghex",
+
+                "gnome-boxes",
+                "gnome-common",
+                "gnome-icon-theme-extras",
+                "gnome-power-manager",
+                "gnome-search-tool",
+                "gnome-system-log",
+                "gnuplot"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "fcitx-im",
+          "desc": "Chinese input method",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "desc": "other pkgs for fcitx",
+              "pkg": [
+                "fcitx-configtool",
+                "fcitx-fbterm",
+                "fcitx-googlepinyin",
+                "fcitx-libpinyin",
+                "fcitx-sunpinyin",
+                "fcitx-table-extra",
+                "fcitx-table-other",
+                "fcitx-ui-light",
+
+                "opencc"
+              ]
+            }
+          ]
+        },
+        {
+          "desc": "fonts",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "adobe-source-code-pro-fonts",
+                "adobe-source-han-sans-cn-fonts",
+                "adobe-source-sans-pro-fonts",
+                "adobe-source-serif-pro-fonts",
+
+                "ttf-croscore",
+                "ttf-droid",
+                "ttf-liberation",
+                "ttf-linux-libertine",
+                "ttf-freefont"
+              ]
+            }
+          ]
+        },
+        {
+          "desc": "sound (ALSA)",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "alsa-firmware",
+                "alsa-oss",
+                "alsa-tools",
+                "alsa-utils",
+                "alsaplayer",
+
+                "jack2",
+                "pamixer",
+                "paprefs",
+                "pavucontrol",
+                "pulseaudio-equalizer",
+                "pulseaudio-jack",
+                "qjackctl"
+              ]
+            }
+          ]
+        },
+
+        "gparted",
+        "v4l2ucp",
+        "directfb",
+        "fbdump",
+        "guvcview"
+      ]
+    },
+    {
+      "level": 0,
+      "desc": "browser",
+      "pkg": [
+        "firefox",
+        "chromium",
+        "opera",
+
+        "flashplugin"
+      ]
+    },
+
+    {
+      "level": 0,
+      "desc": "programming",
+      "pkg": [
+        "base-devel",
+        "vulkan-devel",
+
+        "vulkan-intel",
+        "vulkan-radeon",
+        "beignet",
+
+        "atom",
+        "asar",
+        "emacs",
+
+        "rust-docs",
+        "cargo",
+        "rust-racer",
+        "rustfmt",
+
+        "llvm",
+        "lldb",
+        "clang-tools-extra",
+        "gdb",
+        "musl",
+
+        "redis",
+
+        "coffee-script",
+        "babel-cli",
+        "grunt-cli",
+        "nodejs-less",
+        "browserify",
+        "cloc",
+        {
+          "desc": "gcc for ARM64 (arm)",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "aarch64-linux-gnu-gcc",
+                "aarch64-linux-gnu-gdb",
+                "aarch64-linux-gnu-glibc",
+
+                "arm-none-eabi-gcc",
+                "arm-none-eabi-newlib"
+              ]
+            }
+          ]
+        },
+        {
+          "desc": "Android",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "android-tools",
+                "android-udev",
+                "smali"
+              ]
+            }
+          ]
+        },
+        {
+          "desc": "java",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "jdk8-openjdk",
+                "openjdk8-doc",
+                "openjdk8-src",
+                "fastjar",
+                "gradle",
+                "jadx"
+              ]
+            }
+          ]
+        },
+
+        "scrypt",
+        "three.js",
+        "d-feet",
+        "devtools",
+        "hexedit",
+        "sqlitebrowser"
+      ]
+    },
+    {
+      "level": 0,
+      "desc": "virtual machine",
+      "pkg": [
+        "qemu",
+        "qemu-arch-extra",
+        "qemu-block-iscsi",
+        "ovmf",
+        "qemu-launcher",
+        "virt-manager",
+        "virt-viewer",
+        "virtualgl",
+
+        "virtualbox",
+        "virtualbox-host-dkms",
+        "virtualbox-guest-iso",
+        "virtualbox-ext-vnc"
+      ]
+    },
+
+    {
+      "level": 0,
+      "desc": "video playing",
+      "pkg": [
+        "smplayer",
+        "smplayer-skins",
+        "smplayer-themes",
+
+        "libva-intel-driver",
+        "libva-mesa-driver",
+        "vdpauinfo",
+
+        "gst-libav",
+        "gst-plugins-ugly",
+        "gstreamer-vaapi",
+
+        "baka-mplayer"
+      ]
+    },
+    {
+      "level": 0,
+      "desc": "make multi-media",
+      "pkg": [
+        {
+          "name": "gimp",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "gimp-dbp",
+                "gimp-help-en",
+                "gimp-help-zh_cn",
+                "gimp-plugin-fblur",
+                "gimp-plugin-gmic",
+                "gimp-plugin-lqr",
+                "gimp-plugin-mathmap",
+                "gimp-plugin-wavelet-decompose",
+                "gimp-plugin-wavelet-denoise",
+                "gimp-refocus",
+                "gimp-ufraw"
+              ]
+            }
+          ]
+        },
+        "inkscape",
+
+        "mediainfo",
+        "x264",
+
+        "lmms",
+        {
+          "name": "blender",
+          "rule": [
+            {
+              "type": "white",
+              "level": 0,
+              "pkg": [
+                "luxblend25"
+              ]
+            }
+          ]
+        },
+        "pandoc"
+      ]
+    },
+    {
+      "level": 0,
+      "desc": "network",
+      "pkg": [
+        "wireshark-gtk",
+        "iperf",
+        "traceroute"
+      ]
+    },
+
+    {
+      "type": "white",
+      "desc": "fix",
+      "pkg": [
+        "qca-qt5",
+        "libpng12"
+      ]
+    },
+    {
+      "type": "white",
+      "desc": "ignore",
+      "pkg": []
+    },
+    {
+      "type": "black",
+      "level": 0,
+      "desc": "TODO",
+      "pkg": []
+    }
+  ]
+}
