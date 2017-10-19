@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "desc": "rules for pkg_cleaner, sceext 20170419 1625",
+  "desc": "rules for pkg_cleaner, sceext 20171019 1248",
   "rule": [
     {
       "type": "white",
@@ -18,14 +18,13 @@
               "level": 0,
               "pkg": [
                 "linux-headers",
-                "linux-lts",
-                "linux-lts-headers",
                 "linux-zen",
                 "linux-zen-headers"
               ]
             }
           ]
         },
+        "intel-ucode",
         {
           "desc": "filesystem",
           "rule": [
@@ -33,19 +32,10 @@
               "type": "white",
               "level": 0,
               "pkg": [
-                "btrfs-progs",
                 "sshfs",
-                "unionfs-fuse",
-                "autofs",
-                "avfs",
-
-                "quota-tools",
-                "squashfs-tools",
-                "shfs-utils",
 
                 "exfat-utils",
-                "ntfs-3g",
-                "dosfstools"
+                "ntfs-3g"
               ]
             }
           ]
@@ -60,14 +50,10 @@
         "libnetfilter_queue",
         "dnsmasq",
 
-        "abs",
         "expac",
-        "pacgraph",
         "pkgdiff",
         "pkgstats",
         "checksec",
-        "chrootuid",
-        "fakechroot",
         "cups",
 
         "fish",
@@ -107,8 +93,12 @@
           ]
         },
         "busybox",
-        "man-pages-zh_cn",
-        "moreutils"
+
+        "lksctp-tools",
+        "nload",
+        "openbsd-netcat",
+        "snapd",
+        "lsb-release"
       ]
     },
     {
@@ -125,37 +115,23 @@
               "level": 0,
               "desc": "unneeded drivers",
               "pkg": [
+                "xf86-input-evdev",
+                "xf86-input-keyboard",
+                "xf86-input-mouse",
+                "xf86-input-void",
                 "xf86-input-synaptics",
                 "xf86-input-vmmouse",
+
                 "xf86-video-nouveau",
                 "xf86-video-openchrome",
                 "xf86-video-vmware",
-                "xf86-video-voodoo"
+                "xf86-video-voodoo",
+                "xf86-video-qxl"
               ]
             }
           ]
         },
         "xorg",
-        {
-          "name": "xorg-apps",
-          "desc": "tools for xorg",
-          "rule": [
-            {
-              "type": "black",
-              "level": 0,
-              "desc": "unneeded xorg tools",
-              "pkg": []
-            },
-            {
-              "type": "white",
-              "level": 0,
-              "pkg": [
-                "xorg-server-utils",
-                "xorg-xinit"
-              ]
-            }
-          ]
-        },
         "xorg-fonts",
         {
           "name": "qt5",
@@ -166,7 +142,9 @@
               "level": 0,
               "desc": "unneeded pkgs in `qt` group",
               "pkg": [
-                "qt5-webview"
+                "qt5-webview",
+                "qt5-webkit",
+                "qtcurve-kde"
               ]
             },
             {
@@ -220,7 +198,22 @@
                 "gnome-power-manager",
                 "gnome-search-tool",
                 "gnome-system-log",
-                "gnuplot"
+                "gnuplot",
+
+                "adapta-gtk-theme",
+                "arc-gtk-theme",
+                "arc-icon-theme",
+                "breeze-gtk",
+                "breeze-kde4",
+                "deepin-gtk-theme",
+                "elementary-icon-theme",
+                "gtk-chtheme",
+                "gtk-engine-murrine",
+                "gtk-engines",
+                "mate-icon-theme",
+                "mate-themes",
+                "numix-gtk-theme",
+                "qt5-styleplugins"
               ]
             }
           ]
@@ -235,7 +228,6 @@
               "desc": "other pkgs for fcitx",
               "pkg": [
                 "fcitx-configtool",
-                "fcitx-fbterm",
                 "fcitx-googlepinyin",
                 "fcitx-libpinyin",
                 "fcitx-sunpinyin",
@@ -264,7 +256,12 @@
                 "ttf-droid",
                 "ttf-liberation",
                 "ttf-linux-libertine",
-                "ttf-freefont"
+                "ttf-freefont",
+
+                "noto-fonts-cjk",
+                "noto-fonts-emoji",
+                "ttf-roboto",
+                "ttf-ubuntu-font-family"
               ]
             }
           ]
@@ -309,6 +306,7 @@
         "chromium",
         "opera",
 
+        "pepper-flash",
         "flashplugin"
       ]
     },
@@ -323,10 +321,25 @@
         "vulkan-intel",
         "vulkan-radeon",
         "beignet",
+        "clinfo",
+
+        "docker",
+        "flatpak-builder",
+
+        "kotlin",
+        "javasqlite",
+        "jq",
+        "intellij-idea-community-edition",
+        "gifsicle",
+        "mariadb-clients",
+        "pypy3",
+        "python-pillow",
+        "python-pyquery",
+        "yarn",
+        "rsync",
 
         "atom",
         "asar",
-        "emacs",
 
         "rust-docs",
         "cargo",
@@ -337,7 +350,6 @@
         "lldb",
         "clang-tools-extra",
         "gdb",
-        "musl",
 
         "redis",
 
@@ -347,23 +359,6 @@
         "nodejs-less",
         "browserify",
         "cloc",
-        {
-          "desc": "gcc for ARM64 (arm)",
-          "rule": [
-            {
-              "type": "white",
-              "level": 0,
-              "pkg": [
-                "aarch64-linux-gnu-gcc",
-                "aarch64-linux-gnu-gdb",
-                "aarch64-linux-gnu-glibc",
-
-                "arm-none-eabi-gcc",
-                "arm-none-eabi-newlib"
-              ]
-            }
-          ]
-        },
         {
           "desc": "Android",
           "rule": [
@@ -399,18 +394,17 @@
         "scrypt",
         "three.js",
         "d-feet",
-        "devtools",
         "hexedit",
-        "sqlitebrowser"
+        "sqlitebrowser",
+        "sqlite-analyzer",
+        "sqlite-doc",
+        "sqliteman"
       ]
     },
     {
       "level": 0,
       "desc": "virtual machine",
       "pkg": [
-        "qemu",
-        "qemu-arch-extra",
-        "qemu-block-iscsi",
         "ovmf",
         "qemu-launcher",
         "virt-manager",
@@ -460,7 +454,6 @@
                 "gimp-plugin-fblur",
                 "gimp-plugin-gmic",
                 "gimp-plugin-lqr",
-                "gimp-plugin-mathmap",
                 "gimp-plugin-wavelet-decompose",
                 "gimp-plugin-wavelet-denoise",
                 "gimp-refocus",
@@ -487,7 +480,8 @@
             }
           ]
         },
-        "pandoc"
+        "pandoc",
+        "scribus"
       ]
     },
     {
@@ -517,7 +511,9 @@
       "type": "black",
       "level": 0,
       "desc": "TODO",
-      "pkg": []
+      "pkg": [
+        "apache"
+      ]
     }
   ]
 }

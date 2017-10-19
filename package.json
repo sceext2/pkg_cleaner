@@ -3,6 +3,6 @@
     "build": "coffee -o dist/ src/"
   },
   "devDependencies": {
-    "coffeescript": "^2.0.0-beta1"
+    "coffeescript": "2.0.x"
   }
 }
